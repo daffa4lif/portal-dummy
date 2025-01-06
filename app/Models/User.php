@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserProfile::class, 'user_id');
     }
+
+    public function unit(): HasOne
+    {
+        return $this->hasOne(UnitKerja::class, 'user_id');
+    }
 }
