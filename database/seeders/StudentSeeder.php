@@ -12,12 +12,29 @@ class StudentSeeder extends Seeder
      */
     public function run(): void
     {
+        for ($i = 0; $i < 20; $i++) {
+            $user = \App\Models\User::factory()->has(\App\Models\UserProfile::factory(), 'profile')
+                ->create([
+                    'username' => "211{$i}"
+                ]);
+
+            \App\Models\UnitKerja::factory()->create([
+                'user_id' => $user->id,
+                'role' => 'DOSEN'
+            ]);
+        }
+
         for ($i = 0; $i < 3; $i++) {
             for ($j = 1; $j <= 100; $j++) {
-                \App\Models\User::factory()->has(\App\Models\UserProfile::factory(), 'profile')
+                $user = \App\Models\User::factory()->has(\App\Models\UserProfile::factory(), 'profile')
                     ->create([
                         'username' => "2{$i}00018" . sprintf('%03d', $j)
                     ]);
+
+                \App\Models\UnitKerja::factory()->create([
+                    'user_id' => $user->id,
+                    'role' => 'MAHASISWA'
+                ]);
             }
         }
     }
