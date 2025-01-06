@@ -19,7 +19,7 @@ class AuthController extends Controller
         try {
             $fieldType = filter_var($request->input('credential'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-            $user = User::with('profile')->where($fieldType, $request->input('credential'))->first();
+            $user = User::with('profile', 'unit')->where($fieldType, $request->input('credential'))->first();
 
             if (!$user || !\Illuminate\Support\Facades\Hash::check($request->input('password'), $user->password)) {
                 return response()->json([
